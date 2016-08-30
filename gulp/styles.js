@@ -27,13 +27,8 @@ var buildStyles = function() {
   };
 
   var injectFiles = gulp.src([
+    path.join(conf.paths.src, '/assets/styles/*.scss'),
     path.join(conf.paths.src, '/app/**/*.scss'),
-    path.join(conf.paths.src, '/assets/styles/bootstrap/**/*.scss'),
-    path.join(conf.paths.src, '/assets/styles/global/_var.scss'),
-    path.join(conf.paths.src, '/assets/styles/global/_shared.scss'),
-    path.join(conf.paths.src, '/assets/styles/global/_var-extra.scss'),
-    path.join(conf.paths.src, '/assets/styles/global/_var-pages.scss'),
-    path.join(conf.paths.src, '/assets/**/*.scss'),
     path.join('!' + conf.paths.src, '/app/index.scss')
   ], { read: false });
 
