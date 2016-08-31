@@ -1,0 +1,19 @@
+tenants-nav {
+  .tenant-nav {
+    display: block !important;
+    background-color: #fff !important;
+
+    li a {
+      position: relative;
+      white-space: nowrap;
+      display: block;
+      padding: 15px 15px;
+      -webkit-transition: all 0.25s ease-in-out;
+      transition: all 0.25s ease-in-out;
+    }
+
+    ul {
+      display: block !important;
+    }
+  }
+}

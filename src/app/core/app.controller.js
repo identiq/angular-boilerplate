@@ -2,15 +2,18 @@
     'use strict';
 
     angular.module('app')
-    .controller('AppCtrl', [ '$scope', '$rootScope', '$state', '$document', 'appConfig', AppCtrl]) // overall control
-    
-    function AppCtrl($scope, $rootScope, $state, $document, appConfig) {
+    .controller('AppCtrl', AppCtrl);
+
+    /** @ngInject */
+    function AppCtrl($scope, $rootScope, $state, $document, appConfig, $auth, auth) {
 
         $scope.pageTransitionOpts = appConfig.pageTransitionOpts;
         $scope.main = appConfig.main;
         $scope.color = appConfig.color;
 
-        $scope.$watch('main', function(newVal, oldVal) {
+        activate();
+
+        $scope.$watch('main', function (newVal, oldVal) {
             // if (newVal.menu !== oldVal.menu || newVal.layout !== oldVal.layout) {
             //     $rootScope.$broadcast('layout:changed');
             // }
@@ -36,10 +39,33 @@
             }
         }, true);
 
+        function activate() {
+
+            auth.me().then(meSuccess).catch(meError);
+
+            function meSuccess(user) {
+                $rootScope.user = user;
+            }
+
+            function meError() {
+
+            }
+        }
 
         $rootScope.$on("$stateChangeSuccess", function (event, currentRoute, previousRoute) {
             $document.scrollTo(0, 0);
         });
+
+        $rootScope.handleLogout = function() {
+            $auth.signOut()
+            .then(logoutSuccess)
+            .catch();
+
+            function logoutSuccess() {
+                $state.go('login');
+            }
+        };
+
     }
 
 })(); 

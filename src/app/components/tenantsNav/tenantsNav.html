@@ -1,0 +1,27 @@
+<ul ng-show="vm.tenants.length"
+    class="tenant-nav">
+    <li class="nav-title"><span data-translate="TENANTS"></span></li>
+    <li>
+        <a md-button aria-label="meanu" href="javascript:;" ng-click="vm.setRoot()"><i class="zmdi zmdi-folder-star"></i>Root </a>
+
+    </li>
+    <li ng-repeat="tenant in vm.tenants">
+        <a md-button aria-label="meanu" href="javascript:;" ng-click="tenant.divisible && vm.show(tenant.id)"><i
+                class="zmdi zmdi-folder-outline"></i><span ng-bind="tenant.name"></span> </a>
+        <ul ng-show="tenant.childs && vm.currentTenantId === tenant.id">
+            <li ng-repeat="child in tenant.childs">
+                <a md-button aria-label="meanu" href="javascript:;"
+                   ng-click="child.divisible && vm.showChildren(tenant.id, child.id)"><i
+                        class="zmdi zmdi-folder-person"></i><span ng-bind="child.name"></span></a>
+                <ul ng-show="child.childs && vm.currentChildTenantId === child.id">
+                    <li ng-repeat="childbis in child.childs">
+                        <a md-button aria-label="meanu" href="javascript:;"><i
+                                class="zmdi zmdi-folder-outline"></i><span ng-bind="childbis.name"></span></a>
+                    </li>
+
+                </ul>
+            </li>
+
+        </ul>
+    </li>
+</ul>

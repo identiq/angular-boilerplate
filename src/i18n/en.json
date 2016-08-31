@@ -111,5 +111,24 @@
     "WORDCLOUD": "WordCloud",
     "COMBINATION": "Combination",
     "FUNNEL": "Funnel",
-    "THEMES": "Themes"
+    "THEMES": "Themes",
+
+
+
+    "TENANTS": "Tenants",
+    "INFRASTRUCTURE": "Infrastructure",
+    "INSTANCES": "Instances",
+    "START": "Start",
+    "STOP": "Stop",
+    "RESTART": "Restart",
+    "SUSPEND": "Suspend",
+    "TERMINATE": "Terminate",
+    "REFRESH": "Refresh",
+    "ATTACH": "Attach to project",
+    "CLONE": "Clone",
+    "RENAME": "Rename",
+    "INSTANCE": "Change instance type"
+
+
+
 }

@@ -1,0 +1,57 @@
+<div class="page-signin">
+    <div ui-preloader></div>
+
+    <toaster-container></toaster-container>
+
+    <div class="wrapper">
+        <div class="main-body">
+            <div class="body-inner">
+                <div class="card bg-white">
+                    <form class="form-horizontal form-validation" name="login">
+
+                        <div class="card-content">
+
+                            <section class="logo text-center">
+                                <h1><a href="#/">{{main.brand}}</a></h1>
+                            </section>
+
+                            <fieldset>
+                                <div class="form-group">
+                                    <div class="ui-input-group">
+                                        <input type="text" name="username" ng-model="vm.loginForm.username" required
+                                               class="form-control">
+                                        <span class="input-bar"></span>
+                                        <label>Username</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="ui-input-group">
+                                        <input type="password" name="password" ng-model="vm.loginForm.password"
+                                               required class="form-control">
+                                        <span class="input-bar"></span>
+                                        <label>Password</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="card-action no-border text-right">
+                            <md-button data-ng-disabled="login.$invalid" data-ng-click="vm.handleLogin()" class="btn-w-md md-primary">Sign
+                                in
+                            </md-button>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="additional-info">
+                    <a href="#/page/signup">Register</a>
+                    <span class="divider-h"></span>
+                    <a href="#/page/forgot-password">Forgot your password?</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

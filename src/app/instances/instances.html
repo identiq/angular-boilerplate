@@ -1,0 +1,207 @@
+<div class="page page-table">
+
+    <div class="row ui-section">
+        <div class="col-lg-8 clearfix">
+            <h2 class="section-header">Instances</h2>
+        </div>
+        <div class="col-md-12">
+            <section class="panel panel-default table-dynamic">
+                <div class="table-filters">
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-6">
+                            <form>
+                                <input type="text"
+                                       placeholder="Search..."
+                                       class="form-control"
+                                       data-ng-model="vm.query"
+                                       data-ng-keyup="vm.search(vm.query)">
+                            </form>
+                        </div>
+                        <div class="col-sm-2 col-xs-6">
+                            <div class="btn-group" uib-dropdown is-open="status.provider">
+                                <button ui-wave type="button"
+                                        class="btn btn-raised btn-w-lg btn-default dropdown-toggle" uib-dropdown-toggle
+                                        ng-disabled="disabled"><i class="zmdi zmdi-filter-list"></i> Provider <span
+                                        ng-show="vm.filters.provider" ng-bind="': ' +vm.filters.provider"></span> <span
+                                        class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="javascript:;" ng-click="vm.filterProvider()">All</a></li>
+                                    <li ng-repeat="vendor in vm.vendors"><a href="javascript:;"
+                                                                            ng-click="vm.filterProvider(vendor.name)">{{vendor.name
+                                        | capitalize}}</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-xs-6">
+                            <div class="btn-group" uib-dropdown is-open="status.power">
+                                <button ui-wave type="button"
+                                        class="btn btn-raised btn-w-lg btn-default dropdown-toggle" uib-dropdown-toggle
+                                        ng-disabled="disabled"><i class="zmdi zmdi-filter-list"></i> Status <span
+                                        ng-show="vm.filters.status" ng-bind="': ' +vm.filters.status"></span> <span
+                                        class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="javascript:;" ng-click="vm.filterStatus()">All</a></li>
+                                    <li ng-repeat="status in vm.status"><a href="javascript:;"
+                                                                           ng-click="vm.filterStatus(status.name)">
+                                        <span class="label" ng-class="status.label">{{status.name | capitalize}}</span>
+                                    </a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-xs-6">
+                            <md-button class="btn btn-raised btn-w-lg btn-default" ng-click="vm.refresh()"><i
+                                    class="zmdi zmdi-refresh-alt"></i> Refresh
+                            </md-button>
+                        </div>
+
+                        <div class="col-sm-2 col-xs-6 filter-result-info">
+                <span>
+                Showing {{vm.instances.length}}/{{vm.totalItems}} entries
+                </span>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-bordered table-striped table-responsive">
+                    <thead>
+                    <tr>
+                        <th>
+                            <div class="th">
+                                Name
+                                <span class="fa fa-angle-up"
+                                      data-ng-click=" order('name') "
+                                      data-ng-class="{active: row == 'name'}"></span>
+                                <span class="fa fa-angle-down"
+                                      data-ng-click=" order('-name') "
+                                      data-ng-class="{active: row == '-name'}"></span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="th">
+                                OS
+                            </div>
+                        </th>
+                        <th>
+                            <div class="th">
+                                Project
+                            </div>
+                        </th>
+                        <th>
+                            <div class="th">
+                                Provider
+                                <span class="fa fa-angle-up"
+                                      data-ng-click=" order('rating') "
+                                      data-ng-class="{active: row == 'rating'}"></span>
+                                <span class="fa fa-angle-down"
+                                      data-ng-click=" order('-rating') "
+                                      data-ng-class="{active: row == '-rating'}"></span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="th">
+                                Zone
+                            </div>
+                        </th>
+                        <th>
+                            <div class="th">
+                                Type
+                            </div>
+                        </th>
+                        <th>
+                            <div class="th">
+                                IP
+                            </div>
+                        </th>
+                        <th>
+                            <div class="th">
+                                Expire on
+                            </div>
+                        </th>
+                        <th>
+                            <div class="th">
+                                Hourly cost
+                            </div>
+                        </th>
+                        <th>
+                            <div class="th">
+                                Actions
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="instance in vm.instances">
+                        <td>{{instance.name}}<br><span class="label" ng-class="{
+                         'label-success': instance.power_state === 'on',
+                         'label-danger': instance.power_state === 'off',
+                         'label-info': instance.power_state === 'powering_up' || instance.power_state === 'powering_down',
+                         'label-warning': instance.power_state === 'suspended',
+                         'label-primary': instance.power_state === 'terminated' || instance.power_state === 'unknown'
+                        }" ng-bind="instance.power_state"></span></td>
+                        <td>{{instance.platform}}</td>
+                        <td>{{instance.tenant.name}}</td>
+                        <td><img class="provider" src="{{vm.prodiverDetails(instance.vendor).src}}"/></td>
+                        <td>{{vm.locationDetails(instance.location, instance.provider_id).name}}</td>
+                        <td>{{vm.flavorDetails(instance.flavor_id).name}}<br>{{vm.flavorDetails(instance.flavor_id).cpus}}vcpu
+                            / {{vm.flavorDetails(instance.flavor_id).memory / 1000000000 | number: 2}}GB Mem
+                        </td>
+                        <td>
+                            <ul>
+                                <li ng-repeat="ip in instance.ipaddresses" ng-bind="ip"></li>
+                            </ul>
+                        </td>
+                        <td><span ng-bind="instance.retires_on || 'never'"></span></td>
+                        <td>0</td>
+                        <td style="min-width: 180px">
+                            <div class="btn-group" uib-dropdown>
+                                <button ui-wave type="button"
+                                        class="btn btn-raised md-button md-fab-xs md-fab md-primary md-ink-ripple dropdown-toggle"
+                                        uib-dropdown-toggle
+                                        ng-disabled="disabled"><i class="zmdi zmdi-settings"></i></button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li ng-repeat="action in vm.actions track by $index"
+                                        ng-hide="vm.actionDisable(action.disabled, instance.power_state)"><a
+                                            ng-click="action.fn(instance)" href="javascript:;"><i class="zmdi"
+                                                                                                  ng-class="action.icon"></i>
+                                        <span data-translate="{{action.name}}"></span></a></li>
+
+
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <footer class="table-footer">
+                    <div class="row">
+                        <div class="col-md-6 page-num-info">
+                <span>
+                Show
+                <select data-ng-model="vm.itemsPerPage"
+                        data-ng-options="num for num in vm.numPerPageOpt"
+                        data-ng-change="vm.onNumPerPageChange()">
+                </select>
+                entries per page
+                </span>
+                        </div>
+                        <div class="col-md-6 text-right pagination-container">
+                            <uib-pagination class="pagination-sm"
+                                            ng-model="vm.currentPage"
+                                            total-items="vm.totalItems"
+                                            max-size="4"
+                                            ng-change="vm.pageTo(vm.currentPage)"
+                                            items-per-page="vm.itemsPerPage"
+                                            rotate="false"
+                                            previous-text="&lsaquo;" next-text="&rsaquo;"
+                                            boundary-links="true"></uib-pagination>
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </div>
+    </div>
+
+</div>

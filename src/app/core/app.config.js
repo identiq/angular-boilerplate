@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app.core')
-        .factory('appConfig', [appConfig])
-        .config(['$mdThemingProvider', mdConfig]);
+        .factory('appConfig', appConfig)
+        .config(mdConfig);
 
     function appConfig() {
         var pageTransitionOpts = [
@@ -24,7 +24,7 @@
         var date = new Date();
         var year = date.getFullYear();
         var main = {
-            brand: 'Material',
+            brand: 'Self Deploy',
             name: 'Lisa',
             year: year,
             layout: 'wide',                                 // String: 'boxed', 'wide'
@@ -53,15 +53,16 @@
         }
     }
 
+    /** @ngInject */
     function mdConfig($mdThemingProvider) {
         var cyanAlt = $mdThemingProvider.extendPalette('cyan', {
             'contrastLightColors': '500 600 700 800 900',
             'contrastStrongLightColors': '500 600 700 800 900'
-        })
+        });
         var lightGreenAlt = $mdThemingProvider.extendPalette('light-green', {
             'contrastLightColors': '500 600 700 800 900',
             'contrastStrongLightColors': '500 600 700 800 900'
-        })        
+        })    ;
 
         $mdThemingProvider
             .definePalette('cyanAlt', cyanAlt)

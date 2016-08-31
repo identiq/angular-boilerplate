@@ -7,6 +7,16 @@
         data-highlight-active>
         <li class="nav-title"> <span data-translate="NAVIGATION"></span> </li>
         <li><a md-button aria-label="meanu" href="#/dashboard"><i class="zmdi zmdi-home"></i><span data-translate="DASHBOARD"></span> </a></li>
+
+
+        <li>
+            <a md-button aria-label="meanu" href="#"><i class="zmdi zmdi-cloud-outline-alt"></i><span><span data-translate="INFRASTRUCTURE"></span> </span></a>
+            <ul>
+                <li><a md-button aria-label="meanu" href="#/app/instances"><i class="zmdi zmdi-cloud-done"></i><span data-translate="INSTANCES"></span></a></li>
+
+            </ul>
+        </li>
+
         <li>
             <a md-button aria-label="meanu" href="#/ui"><i class="zmdi zmdi-card-giftcard"></i><span><span data-translate="MATERIAL"></span> UI</span></a>
             <ul>
@@ -64,9 +74,7 @@
             </ul>
         </li>
         <li class="nav-divider"></li>
-        <li class="nav-title"> <span data-translate="FEATURES"></span> </li>
-        <li class="li-small"><a href="#/ui/components"><i class="fa fa-circle color-info"></i> <span data-translate="MATERIAL_COMPO"></span></a></li>
-        <li class="li-small"><a href="#/form/elements"><i class="fa fa-circle color-success"></i> <span data-translate="MATERIAL_ELEMENTS"></span></a></li>
-        <li class="li-small"><a href="#/ui/icons"><i class="fa fa-circle color-danger"></i> <span data-translate="MATERIAL_ICONS"></span></a></li>
+        <tenants-nav></tenants-nav>
+
     </ul>
 </div>

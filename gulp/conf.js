@@ -15,8 +15,10 @@ exports.paths = {
   src: 'src',
   dist: 'dist',
   tmp: '.tmp',
-  e2e: 'e2e'
+  e2e: 'e2e',
 };
+
+exports.port = 9000;
 
 /**
  *  Wiredep is the lib which inject bower dependencies in your project
