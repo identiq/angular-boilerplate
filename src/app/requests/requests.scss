@@ -1,5 +1,12 @@
 table {
-  img.provider {
-    max-width: 40px;
+  i.approval {
+    display: block;
+    font-size: 2em;
+    text-align: center;
+  }
+  td {
+    div.approval {
+      min-width: 78px;
+    }
   }
 }

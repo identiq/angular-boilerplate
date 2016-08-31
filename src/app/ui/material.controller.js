@@ -78,7 +78,7 @@
         $scope.showAdvanced = function(ev) {
             $mdDialog.show({
                 controller: DialogController,
-                templateUrl: 'dialog1.tmpl.html',
+                templateUrl: 'app/requests/approbation.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose:true

@@ -1,0 +1,17 @@
+<md-dialog aria-label="Approbation" md-theme="default">
+    <md-dialog-content class="md-dialog-content">
+        <h2 class="md-title"> Request Approval {{type}}</h2>
+        <md-input-container class="md-block">
+            <label>Reason</label>
+            <input ng-model="reasonInput">
+        </md-input-container>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="cancel()" class="md-danger">
+            Cancel
+        </md-button>
+        <md-button ng-click="reason(reasonInput)" class="md-primary">
+            Confirm
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

@@ -127,7 +127,8 @@
     "ATTACH": "Attach to project",
     "CLONE": "Clone",
     "RENAME": "Rename",
-    "INSTANCE": "Change instance type"
+    "INSTANCE": "Change instance type",
+    "REQUESTS": "Requests"
 
 
 

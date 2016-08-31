@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -38,11 +38,9 @@
                     vm.tenants = lodash.sortBy(lodash.filter(tenants, findByParent), ['name', 'description']);
                 }
 
-
                 function findByParent(o) {
                     return lodash.indexOf(o.ancestry, '1') >= 0 && o.level == 1;
                 }
-
 
             }
 

@@ -14,6 +14,7 @@
     'ui.router',
     'mgcrea.ngStrap',
     'toastr',
+    'angularMoment',
 
     // App
     'app.core'

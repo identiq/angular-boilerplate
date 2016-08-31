@@ -43,9 +43,9 @@
                 'tenant_id={id}'.replace('{id}', tenant)
             ];
 
-            if(search && search.length > 2) filters.push('name=%{query}%'.replace('{query}', search));
-            if(filter && lodash.isString(filter.provider)) filters.push('vendor={vendor}'.replace('{vendor}', filter.provider));
-            if(filter && lodash.isString(filter.status)) filters.push('power_state={state}'.replace('{state}', filter.status));
+            if (search && search.length > 2) filters.push('name=%{query}%'.replace('{query}', search));
+            if (filter && lodash.isString(filter.provider)) filters.push('vendor={vendor}'.replace('{vendor}', filter.provider));
+            if (filter && lodash.isString(filter.status)) filters.push('power_state={state}'.replace('{state}', filter.status));
 
 
             $http.get(APP_CONFIG.API_URL + '/vms.json', {
@@ -81,7 +81,7 @@
             var deferred = $q.defer();
             var promises = [];
 
-            if(service.flavors.length) return deferred.resolve(service.flavors);
+            if (service.flavors.length) return deferred.resolve(service.flavors);
 
             $http.get(APP_CONFIG.API_URL + '/flavors.json', {params: {per_page: 50}})
             .then(allSuccess)
@@ -94,7 +94,7 @@
                 $q.all(promises).then(promiseSuccess).catch(allError);
 
                 function iterate(page) {
-                    promises.push(service.flavorsPage(parseInt(page)+1));
+                    promises.push(service.flavorsPage(parseInt(page) + 1));
                 }
             }
 
@@ -136,7 +136,7 @@
         function providersList() {
             var deferred = $q.defer();
 
-            if(service.providers.length) return deferred.resolve(service.providers);
+            if (service.providers.length) return deferred.resolve(service.providers);
 
             $http({
                 url: APP_CONFIG.API_URL + '/providers.json',
@@ -229,9 +229,8 @@
         }
 
         function broadcastAction(action) {
-            $rootScope.$broadcast('instances:action', action || 'unknown' );
+            $rootScope.$broadcast('instances:action', action || 'unknown');
         }
-
 
 
     }

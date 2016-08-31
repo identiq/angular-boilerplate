@@ -31,7 +31,12 @@
                 disabled: ['off', 'powering_down', 'terminated', 'unknow'],
                 fn: instances.stop
             },
-            {name: 'RESTART', icon: 'zmdi-repeat', disabled: ['terminated', 'unknow'], fn: instances.restart},
+            {
+                name: 'RESTART',
+                icon: 'zmdi-repeat',
+                disabled: ['terminated', 'unknow'],
+                fn: instances.restart
+            },
             {
                 name: 'SUSPEND',
                 icon: 'zmdi-pause-circle-outline',
@@ -73,12 +78,12 @@
         vm.flavorDetails = flavorDetails;
         vm.prodiverDetails = providerDetails;
         vm.locationDetails = locationDetails;
-        vm.pageTo = pageTo;
-        vm.search = search;
-        vm.action = action;
         vm.actionDisable = actionDisable;
         vm.filterProvider = filterProvider;
         vm.filterStatus = filterStatus;
+        vm.pageTo = pageTo;
+        vm.search = search;
+        vm.action = action;
 
         $scope.$on('tenants:change', tenantsChange);
         $scope.$on('instances:action', tenantsChange);
