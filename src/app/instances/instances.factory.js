@@ -6,15 +6,35 @@
     .factory('instances', instances);
 
     /** @ngInject */
-    function instances($q, $http, toastr, lodash, $log, APP_CONFIG, $rootScope, $timeout) {
+    function instances($q, $http, toastr, lodash, $log, APP_CONFIG, $rootScope, $timeout, Restangular, providers) {
 
         var service = {
             flavors: [],
-            providers: [],
+            actions: [
+                {name: 'START', icon: 'zmdi-play-circle-outline', disabled: ['on', 'powering_up', 'terminated', 'unknow'], edit: true, md: 'md-primary', fn: start},
+                {name: 'STOP', icon: 'zmdi-power', disabled: ['off', 'powering_down', 'terminated', 'unknow'], edit: true, md: '', fn: stop},
+                {name: 'RESTART', icon: 'zmdi-repeat', disabled: ['terminated', 'unknow'], edit: true, md: '',fn: restart},
+                {name: 'SUSPEND', icon: 'zmdi-pause-circle-outline', disabled: ['terminated', 'unknow'], edit: true, md: '',fn: suspend},
+                {name: 'TERMINATE', icon: 'zmdi zmdi-close-circle-o', disabled: ['terminated', 'unknow'], edit: true, md: 'md-warn', fn: terminate},
+                {name: 'REFRESH', icon: 'zmdi-refresh-alt', disabled: ['terminated', 'unknow'], edit: false, fn: refresh},
+                {name: 'ATTACH', icon: 'zmdi-attachment-alt', disabled: ['terminated', 'unknow'], edit: false, fn: attach},
+                {name: 'CLONE', icon: 'zmdi-copy', disabled: ['terminated', 'unknow'], edit: false, fn: clone},
+                {name: 'RENAME', icon: 'zmdi-edit', disabled: ['terminated', 'unknow'], edit: false, fn: rename},
+                {name: 'INSTANCE', icon: 'zmdi-dns', disabled: ['terminated', 'unknow'], edit: false, fn: changeType}
+            ],
+            status: [
+                {name: 'on', label: 'label-success', btn: 'btn-success'},
+                {name: 'off', label: 'label-danger', btn: 'btn-danger'},
+                {name: 'powering_up', label: 'label-info', btn: 'btn-info'},
+                {name: 'powering_down', label: 'label-info', btn: 'btn-info'},
+                {name: 'suspended', label: 'label-warning', btn: 'btn-warning'},
+                {name: 'terminated', label: 'label-default', btn: 'btn-default'},
+                {name: 'unknown', label: 'label-primary', btn: 'btn-primary'},
+            ],
             page: page,
+            one: one,
             flavorsList: flavorsList,
             flavorsPage: flavorsPage,
-            providersList: providersList,
             powerAction: powerAction,
             start: start,
             stop: stop,
@@ -26,7 +46,10 @@
             clone: clone,
             rename: rename,
             changeType: changeType,
-            broadcastAction: broadcastAction
+            broadcastAction: broadcastAction,
+            actionDisable: actionDisable,
+            flavorDetails: flavorDetails,
+            locationDetails: locationDetails
         };
 
         return service;
@@ -58,7 +81,6 @@
             .catch(allError);
 
             function allSuccess(res) {
-                $log.debug(res);
 
                 deferred.resolve({
                     data: res.data,
@@ -133,32 +155,6 @@
             return deferred.promise;
         }
 
-        function providersList() {
-            var deferred = $q.defer();
-
-            if (service.providers.length) return deferred.resolve(service.providers);
-
-            $http({
-                url: APP_CONFIG.API_URL + '/providers.json',
-                method: 'OPTIONS'
-            })
-            .then(allSuccess)
-            .catch(allError);
-
-            function allSuccess(res) {
-                service.providers = res.data;
-                deferred.resolve(res.data);
-            }
-
-            function allError(err) {
-                $log.debug(err);
-                toastr.error('Error', JSON.stringify(err));
-                deferred.reject(err);
-            }
-
-            return deferred.promise;
-        }
-
         function powerAction(id, action) {
             var deferred = $q.defer();
 
@@ -167,7 +163,6 @@
             .catch(powerError);
 
             function powerSuccess(res) {
-                service.providers = res.data;
                 $timeout(service.broadcastAction, 3000);
                 toastr.success(lodash.capitalize(action) + ' successful');
                 deferred.resolve(res.data);
@@ -232,6 +227,23 @@
             $rootScope.$broadcast('instances:action', action || 'unknown');
         }
 
+        function one(id) {
+            return Restangular.one('vms', id).get();
+        }
+
+        function actionDisable(disabled, power_state) {
+            return lodash.indexOf(disabled, power_state) >= 0;
+        }
+
+        function flavorDetails(id) {
+            return lodash.find(service.flavors, {id: id});
+        }
+
+        function locationDetails(name, provider) {
+            if (!provider || !providers.providers.kinds || !providers.providers.kinds.length) return {name: 'n/a'};
+            var regionIndex = lodash.find(providers.providers.kinds, {id: provider}).name;
+            return lodash.split(name, '.', 2) ? lodash.find(providers.providers.regions[regionIndex], {name: lodash.split(name, '.', 2)[1]}) : null;
+        }
 
     }
 })();

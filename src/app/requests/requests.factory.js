@@ -30,7 +30,6 @@
             .catch(allError);
 
             function allSuccess(res) {
-                $log.debug(res);
 
                 deferred.resolve({
                     data: res.data,

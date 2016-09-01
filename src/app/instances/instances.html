@@ -133,7 +133,9 @@
                     </thead>
                     <tbody>
                     <tr data-ng-repeat="instance in vm.instances">
-                        <td>{{instance.name}}<br><span class="label" ng-class="{
+                        <td><a href="#/app/instances/{{instance.id}}">{{instance.name}}</a>
+                            <br>
+                            <span class="label" ng-class="{
                          'label-success': instance.power_state === 'on',
                          'label-danger': instance.power_state === 'off',
                          'label-info': instance.power_state === 'powering_up' || instance.power_state === 'powering_down',

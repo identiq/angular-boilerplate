@@ -1,0 +1,139 @@
+<div class="page instance">
+
+    <div class="row ui-section">
+        <div class="col-lg-8 clearfix">
+            <h2 class="section-header">Instance #{{vm.instance.id}}: {{vm.instance.name}}</h2>
+        </div>
+        <div class="col-md-12">
+            <section class="panel panel-default">
+
+                <div class="panel-body">
+
+
+                    <div class="row instance-actions">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <button ui-wave popover-title="Last status updated on"
+                                            uib-popover="{{vm.instance.state_changed_on}}" class="btn btn-w-lg btn-raised"
+                                            ng-class="vm.actionClass(vm.instance.power_state)">Status :
+                                        {{vm.instance.power_state | capitalize}}
+                                    </button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="btn-group btn-raised" uib-dropdown>
+                                        <button ui-wave type="button" class="btn btn-w-md btn-danger"> Ending on: {{vm.instance.retires_on || 'never'}}</button>
+                                        <button ui-wave type="button" class="btn btn-danger dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="javascript:;">Never</a></li>
+                                            <li><a href="javascript:;">Set an ending date</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-2" ng-repeat="action in vm.actions">
+                                    <md-button ng-click="action.fn(vm.instance)" class="md-raised btn-w-xs"
+                                               ng-disabled="vm.actionDisable(action.disabled, vm.instance.power_state)" ng-class="action.md">{{action.name | capitalize}}
+                                    </md-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-tab-container ui-tab-vertical">
+                        <uib-tabset class="ui-tab">
+                            <uib-tab heading="Details">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p><strong>Name</strong><br>{{vm.instance.name}}</p>
+                                        <p><strong>Power state</strong><br>{{vm.instance.power_state}}</p>
+                                        <p><strong>Image</strong><br>{{vm.instance.image}}</p>
+                                        <p><strong>IP addresses</strong><br><ul><li ng-repeat="ip in vm.instance.ipaddresses" ng-bind="ip"></li></ul></p>
+                                        <p><strong>Created on</strong><br>{{vm.instance.created_on}}</p>
+                                        <p><strong>Region</strong><br>{{vm.locationDetails(vm.instance.location, vm.instance.provider_id).name}}</p>
+                                        <p><strong>Vendor</strong><br>{{vm.instance.vendor}}</p>
+
+
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <p><strong>Previous state</strong><br>{{vm.instance.previous_state}}</p>
+                                        <p><strong>Flavor</strong><br>{{vm.flavorDetails(vm.instance.flavor_id).name}}</p>
+                                        <p><strong>Updated on</strong><br>{{vm.instance.updated_on}}</p>
+                                        <p><strong>Expiration date</strong><br>{{vm.instance.vendor}}</p>
+                                        <p><strong>Tenant</strong><br>{{vm.instance.tenant_id}}</p>
+                                        <p><strong>Change instance type</strong><br></p>
+
+                                    </div>
+                                </div>
+                                <p><strong>Key pairs</strong><br>{{vm.instance.key_pairs[0].name}} ({{vm.instance.key_pairs[0].fingerprint}})</p>
+
+                            </uib-tab>
+                            <uib-tab heading="Volumes">
+                                <instance-volumes instance="vm.instance"></instance-volumes>
+                            </uib-tab>
+                            <uib-tab heading="Scheduling">
+                                <p>Blanditiis tenetur harum distinctio voluptate asperiores non magnam delectus.
+                                    Consequatur, deleniti rem magnam possimus necessitatibus iusto suscipit mollitia
+                                    rerum.</p>
+                                <p>Quod ea vel dolores earum veritatis quae sunt tempore consectetur adipisicing elit.
+                                    Suscipit, odit molestias sit optio quaerat cupiditate iure repudiandae illum
+                                    doloremque consectetur incidunt!</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, aspernatur, eum
+                                    fugit officiis numquam iste aut illo quos pariatur Eligendi, veniam, accusamus.</p>
+                            </uib-tab>
+                            <uib-tab heading="Snapshots">
+                            </uib-tab>
+                            <uib-tab heading="Firewall">
+                                <p>Blanditiis tenetur harum distinctio voluptate asperiores non magnam delectus.
+                                    Consequatur, deleniti rem magnam possimus necessitatibus iusto suscipit mollitia
+                                    rerum.</p>
+                                <p>Quod ea vel dolores earum veritatis quae sunt tempore consectetur adipisicing elit.
+                                    Suscipit, odit molestias sit optio quaerat cupiditate iure repudiandae illum
+                                    doloremque consectetur incidunt!</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, aspernatur, eum
+                                    fugit officiis numquam iste aut illo quos pariatur Eligendi, veniam, accusamus.</p>
+                            </uib-tab>
+                            <uib-tab heading="Events">
+                                <p>Blanditiis tenetur harum distinctio voluptate asperiores non magnam delectus.
+                                    Consequatur, deleniti rem magnam possimus necessitatibus iusto suscipit mollitia
+                                    rerum.</p>
+                                <p>Quod ea vel dolores earum veritatis quae sunt tempore consectetur adipisicing elit.
+                                    Suscipit, odit molestias sit optio quaerat cupiditate iure repudiandae illum
+                                    doloremque consectetur incidunt!</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, aspernatur, eum
+                                    fugit officiis numquam iste aut illo quos pariatur Eligendi, veniam, accusamus.</p>
+                            </uib-tab>
+                            <uib-tab heading="Backups">
+                                <p>Blanditiis tenetur harum distinctio voluptate asperiores non magnam delectus.
+                                    Consequatur, deleniti rem magnam possimus necessitatibus iusto suscipit mollitia
+                                    rerum.</p>
+                                <p>Quod ea vel dolores earum veritatis quae sunt tempore consectetur adipisicing elit.
+                                    Suscipit, odit molestias sit optio quaerat cupiditate iure repudiandae illum
+                                    doloremque consectetur incidunt!</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, aspernatur, eum
+                                    fugit officiis numquam iste aut illo quos pariatur Eligendi, veniam, accusamus.</p>
+                            </uib-tab>
+                            <uib-tab heading="Costs">
+                                <p>Blanditiis tenetur harum distinctio voluptate asperiores non magnam delectus.
+                                    Consequatur, deleniti rem magnam possimus necessitatibus iusto suscipit mollitia
+                                    rerum.</p>
+                                <p>Quod ea vel dolores earum veritatis quae sunt tempore consectetur adipisicing elit.
+                                    Suscipit, odit molestias sit optio quaerat cupiditate iure repudiandae illum
+                                    doloremque consectetur incidunt!</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, aspernatur, eum
+                                    fugit officiis numquam iste aut illo quos pariatur Eligendi, veniam, accusamus.</p>
+                            </uib-tab>
+                        </uib-tabset>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>

@@ -37,13 +37,29 @@
         .state('app.instances', {
             url: '/instances',
             templateUrl: 'app/instances/instances.html',
-            controller: 'InstanceController',
+            controller: 'InstancesController',
             controllerAs: 'vm',
             resolve: {
                 currentTenantId: currentTenantRoute,
                 instancesList: instancesRoute,
                 flavorsList: flavorsRoute,
-                providersList: providersRoute
+                providersList: providersOptionsRoute,
+                providersArr: providersRoute
+            }
+        })
+
+        .state('app.instance', {
+            url: '/instances/:id',
+            templateUrl: 'app/instances/instance.html',
+            controller: 'InstanceController',
+            controllerAs: 'vm',
+            resolve: {
+                currentTenantId: currentTenantRoute,
+                instancesList: instancesRoute,
+                providersList: providersOptionsRoute,
+                providersArr: providersRoute,
+                flavorsList: flavorsRoute,
+                instance: instanceRoute
             }
         })
 
@@ -89,13 +105,23 @@
         }
 
         /** @ngInject */
-        function providersRoute(instances) {
-            return instances.providersList();
+        function providersOptionsRoute(providers) {
+            return providers.providersOptions();
+        }
+
+        /** @ngInject */
+        function providersRoute(providers) {
+            return providers.all();
         }
 
         /** @ngInject */
         function requestsRoute(requests) {
             return requests.page();
+        }
+
+        /** @ngInject */
+        function instanceRoute($stateParams, instances) {
+            return instances.one($stateParams.id);
         }
 
         /*

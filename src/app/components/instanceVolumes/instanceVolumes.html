@@ -1,0 +1,87 @@
+<form name="createForm" ng-submit="createForm.$valid && vm.create()">
+    <table class="table no-margin">
+        <thead>
+        <tr>
+            <th>Status</th>
+            <th>Name</th>
+            <th>Device</th>
+            <th>Kind</th>
+            <th>Size (GB)</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="volume in vm.volumes">
+            <td><span class="color-success"><i class="fa fa-level-up"></i></span> {{volume.status}}</td>
+            <td>{{volume.name}} ({{volume.external_id}})</td>
+            <td>{{volume.device}}
+                <div ng-if="volume.status === 'detached'" class="form-group">
+                    <label class="sr-only">Device</label>
+                    <select name="volumeDevice" ng-model="volume.device" class="form-control"
+                            ng-options="device as device for device in vm.devices track by device">
+                    </select>
+                </div>
+            </td>
+            <td>{{volume.kind}}</td>
+            <td>{{volume.size}}</td>
+            <td>
+                <div class="btn-group" uib-dropdown>
+                    <button ui-wave type="button" class="btn btn-raised btn-w-xs btn-xs btn-default dropdown-toggle"
+                            uib-dropdown-toggle ng-disabled="disabled"> Actions <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-repeat="action in vm.actions track by $index"
+                            ng-hide="vm.actionDisable($index, volume, vm.instance)"><a href="javascript:;"
+                                                                                       ng-click="action.fn(volume)"><i
+                                class="zmdi" ng-class="action.icon"></i> {{action.name}}</a></li>
+
+                    </ul>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+
+            </td>
+            <td>
+                <div class="form-group">
+                    <label class="sr-only">Name</label>
+                    <input name="volumeName" ng-model="vm.volumeForm.name" type="text" class="form-control"
+                           placeholder="Name" required>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <label class="sr-only">Device</label>
+                    <select ng-model="vm.volumeForm.device" name="vm.volumeDevice" class="form-control"
+                            ng-options="device as device for device in vm.devices track by device" required>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <label class="sr-only">Kind</label>
+                    <select name="volumeKind" ng-model="vm.volumeForm.kind" class="form-control"
+                            ng-options="kind as kind for kind in vm.kinds track by kind" required>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <label class="sr-only">Size</label>
+                    <input type="number" name="volumeSize" ng-model="vm.volumeForm.size" class="form-control"
+                           placeholder="Size" required>
+
+                </div>
+            </td>
+            <td>
+                <button ui-wave type="submit" ng-disabled="createForm.$invalid"
+                        class="btn btn-raised btn-w-xs btn-primary">Create volume
+                </button>
+            </td>
+        </tr>
+
+
+        </tbody>
+    </table>
+</form>
