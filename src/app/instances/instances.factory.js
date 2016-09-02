@@ -129,7 +129,7 @@
             }
 
             function allError(err) {
-                $log.debug(err);
+                $log.debug('flavorsError', err);
                 toastr.error('Error', JSON.stringify(err));
                 deferred.reject(err);
             }
@@ -171,7 +171,7 @@
             }
 
             function powerError(err) {
-                $log.debug(err);
+                $log.debug('powerActionError', err);
                 toastr.error('Error', JSON.stringify(err));
                 deferred.reject(err);
             }
@@ -181,27 +181,27 @@
 
         function start(instance) {
 
-            return powerAction(instance.id, 'start');
+            return service.powerAction(instance.id, 'start');
 
         }
 
         function stop(instance) {
 
-            return powerAction(instance.id, 'stop');
+            return service.powerAction(instance.id, 'stop');
 
         }
 
         function restart(instance) {
-            return powerAction(instance.id, 'restart');
+            return service.powerAction(instance.id, 'restart');
 
         }
 
         function suspend(instance) {
-            return powerAction(instance.id, 'suspend');
+            return service.powerAction(instance.id, 'suspend');
         }
 
         function terminate(instance) {
-            return powerAction(instance.id, 'terminate');
+            return service.powerAction(instance.id, 'terminate');
 
         }
 

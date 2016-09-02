@@ -179,7 +179,7 @@
                         <div class="panel-body">
                             <div ui-tree="vm.options" data-drag-enabled="false">
                                 <ol ui-tree-nodes ng-model="vm.list" >
-                                    <li ng-repeat="item in vm.list" ui-tree-node ng-include="'items_renderer.html'"></li>
+                                    <li ng-repeat="item in vm.list track by item.id" ui-tree-node ng-include="'items_renderer.html'"></li>
                                 </ol>
                             </div>
                         </div>
@@ -209,7 +209,7 @@
 
         </div>
         <ol ui-tree-nodes="vm.options" ng-model="item.nodes" ng-class="{hidden: collapsed}">
-            <li ng-repeat="item in item.nodes" ui-tree-node ng-include="'items_renderer.html'">
+            <li ng-repeat="item in item.nodes track by item.id" ui-tree-node ng-include="'items_renderer.html'">
             </li>
         </ol>
     </script>

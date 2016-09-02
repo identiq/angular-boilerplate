@@ -105,7 +105,7 @@
             var deferred = $q.defer();
             var promises = [];
 
-            if (service.tenants.length) return deferred.resolve(service.tenants);
+            if (service.tenants.length > 0) return deferred.resolve(service.tenants);
 
             topLoader.show();
 
@@ -127,7 +127,7 @@
             }
 
             function allError(err) {
-                $log.debug(err);
+                $log.debug('allTenantsError', err);
                 topLoader.hide();
                 toastr.error('Error', JSON.stringify(err));
                 deferred.reject(err);
@@ -150,15 +150,13 @@
                     }
                 });
 
-                $localForage.setItem('tenantsList', service.tenants).then(setTenants);
-
-                function setTenants() {
-                    deferred.resolve(service.tenants);
-                }
+                deferred.resolve(service.tenants);
             }
         }
 
         function page(page) {
+
+            page = page || 1;
 
             var deferred = $q.defer();
 
@@ -191,12 +189,11 @@
 
             function oneSuccess(res) {
                 topLoader.hide();
-                if (!res.data.length) toastr.info('No childrens', 'Empty');
                 deferred.resolve(res.data);
             }
 
             function oneError(err) {
-                $log.debug(err);
+                $log.debug('getChildrensError', err);
                 toastr.error('Error', JSON.stringify(err));
                 deferred.reject(err);
             }
@@ -227,10 +224,19 @@
 
                 if (lodash.isArray(tenantsList) && tenantsList.length) return deferred.resolve(tenantsList);
 
-                service.allTenants().then(successTenants);
+                service.allTenants().then(setTenants).then(successTenants);
 
                 function successTenants(res) {
                     deferred.resolve(res);
+                }
+
+                function setTenants(tenants) {
+                    var deferredSec = $q.defer();
+                    $localForage.setItem('tenantsList', tenants).then(setTenants);
+                    return deferredSec.promise;
+                    function setTenants() {
+                        deferredSec.resolve(tenants);
+                    }
                 }
             }
 
