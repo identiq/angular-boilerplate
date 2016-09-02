@@ -28,9 +28,10 @@
         .state('app.dashboard', {
             url: '/dashboard',
             templateUrl: 'app/dashboard/dashboard.html',
+            controller: 'DashboardController',
             controllerAs: 'vm',
             resolve: {
-                tenants: tenantsRoute
+                tenantsList: tenantsRoute
             }
         })
 

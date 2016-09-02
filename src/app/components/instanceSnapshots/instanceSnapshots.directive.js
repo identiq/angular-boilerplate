@@ -21,7 +21,7 @@
         return directive;
 
         /** @ngInject */
-        function InstanceSnapshotsController(toastr, topLoader, $log, $q) {
+        function InstanceSnapshotsController(toastr, topLoader, $log, $q, lodash) {
             var vm = this;
 
             vm.volumes = [];
@@ -35,7 +35,7 @@
                 vm.instance.getList('volumes').then(volumesSuccess).catch(volumesError);
 
                 function volumesSuccess(volumes) {
-                    _.each(volumes, addPromise);
+                    lodash.each(volumes, addPromise);
 
                     function addPromise() {
                         promises.push(volumes.getList('snapshots'));
@@ -53,9 +53,9 @@
                 }
 
                 function snapshotsSuccess(res) {
-                    $log.debug(res.data);
+                    $log.debug(res);
                     topLoader.hide();
-                    vm.snapshots = res.data;
+                    vm.snapshots = lodash.flatten(res);
                 }
 
             }

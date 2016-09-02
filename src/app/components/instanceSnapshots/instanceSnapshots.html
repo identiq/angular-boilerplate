@@ -1,19 +1,22 @@
-    <table class="table no-margin">
-        <thead>
-        <tr>
-            <th>Volume</th>
-            <th>External ID</th>
-            <th>Start time</th>
-            <th>Size</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="snapshot in vm.snapshots">
+<table class="table no-margin">
+    <thead>
+    <tr>
+        <th>Volume</th>
+        <th>External ID</th>
+        <th>Start time</th>
+        <th>Size</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="snapshot in vm.snapshots">
 
-            <td>{{snapshot.size}}</td>
+        <td>{{snapshot.volume}}</td>
+        <td>{{snapshot.external_id}}</td>
+        <td>{{snapshot.size}}</td>
+        <td>{{snapshot.size}}</td>
+        <td></td>
+    </tr>
 
-        </tr>
-
-        </tbody>
-    </table>
+    </tbody>
+</table>

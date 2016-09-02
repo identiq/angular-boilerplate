@@ -57,6 +57,8 @@
         function page(page, tenant, search, filter) {
 
             search = search || false;
+            page = page || 1;
+            tenant = tenant || 1;
 
             filter = lodash.isObject(filter) ? filter : false;
 
@@ -89,7 +91,7 @@
             }
 
             function allError(err) {
-                $log.debug(err);
+                $log.debug('pageError', err);
                 toastr.error('Error', JSON.stringify(err));
                 deferred.reject(err);
             }

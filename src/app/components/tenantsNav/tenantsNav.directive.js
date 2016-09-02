@@ -32,6 +32,7 @@
             activate();
 
             function activate() {
+
                 tenants.all().then(tenantsSuccess);
 
                 function tenantsSuccess(tenants) {
