@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    fdescribe('service auth', function () {
+    describe('service auth', function () {
         var auth;
         var $httpBackend;
         var $log;
