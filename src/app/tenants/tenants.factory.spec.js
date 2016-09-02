@@ -188,6 +188,12 @@
                 expect(tenants.nested).not.toEqual(null);
             });
 
+            it('should add nodes', function() {
+                tenants.nested(res['nestedTenants'], function(res) {
+                    expect(res).toEqual(jasmine.any(Array));
+                })
+            });
+
         });
 
 
@@ -206,6 +212,139 @@
             "description": "Tenant chef organization 6",
             "use_config_for_attributes": false,
             "default_miq_group_id": 771,
+            "tenant_quotas": [],
+            "pricing_model_id": 1,
+            "disabled_providers": []
+        }
+    ];
+
+    res['nestedTenants'] = [
+        {
+            "errors": {},
+            "id": 112,
+            "name": "Tenant-chef-organization-9",
+            "ancestry": "1/2/24/64",
+            "divisible": true,
+            "description": "Tenant chef organization 8",
+            "use_config_for_attributes": false,
+            "default_miq_group_id": 779,
+            "tenant_quotas": [],
+            "pricing_model_id": 1,
+            "disabled_providers": []
+        },
+        {
+            "errors": {},
+            "id": 111,
+            "name": "Tenant-chef-organization-6",
+            "ancestry": "1/2/24/64",
+            "divisible": true,
+            "description": "Tenant chef organization 6",
+            "use_config_for_attributes": false,
+            "default_miq_group_id": 771,
+            "tenant_quotas": [],
+            "pricing_model_id": 1,
+            "disabled_providers": []
+        },
+        {
+            "errors": {},
+            "id": 110,
+            "name": "Tenant-chef-organization-5",
+            "ancestry": "1/2/24/64",
+            "divisible": true,
+            "description": "Tenant chef organization 5",
+            "use_config_for_attributes": false,
+            "default_miq_group_id": 763,
+            "tenant_quotas": [],
+            "pricing_model_id": 1,
+            "disabled_providers": []
+        },
+        {
+            "errors": {},
+            "id": 109,
+            "name": "Tenant-chef-organization-8",
+            "ancestry": "1/2/24/64",
+            "divisible": true,
+            "description": "Tenant chef organization 8",
+            "use_config_for_attributes": false,
+            "default_miq_group_id": 755,
+            "tenant_quotas": [],
+            "pricing_model_id": 1,
+            "disabled_providers": []
+        },
+        {
+            "errors": {},
+            "id": 108,
+            "name": "Tenant-chef-organization-4",
+            "ancestry": "1/2/24/64",
+            "divisible": true,
+            "description": "Tenant chef organization 4",
+            "use_config_for_attributes": false,
+            "default_miq_group_id": 747,
+            "tenant_quotas": [],
+            "pricing_model_id": 1,
+            "disabled_providers": []
+        },
+        {
+            "errors": {},
+            "id": 107,
+            "name": "Tenant-chef-organization-3",
+            "ancestry": "1/2/24/64",
+            "divisible": true,
+            "description": "Tenant chef organization 3",
+            "use_config_for_attributes": false,
+            "default_miq_group_id": 739,
+            "tenant_quotas": [],
+            "pricing_model_id": 1,
+            "disabled_providers": []
+        },
+        {
+            "errors": {},
+            "id": 106,
+            "name": "Tenant-chef-organization-2",
+            "ancestry": "1/2/24/64",
+            "divisible": true,
+            "description": "Tenant chef organization 2",
+            "use_config_for_attributes": false,
+            "default_miq_group_id": 731,
+            "tenant_quotas": [],
+            "pricing_model_id": 1,
+            "disabled_providers": []
+        },
+        {
+            "errors": {},
+            "id": 105,
+            "name": "Tenant-chef-organization-1-1",
+            "ancestry": "1/2/24/64/104",
+            "divisible": true,
+            "description": "Tenant-chef-organization-1-1",
+            "use_config_for_attributes": false,
+            "default_miq_group_id": 723,
+            "tenant_quotas": [],
+            "pricing_model_id": 1,
+            "disabled_providers": []
+        },
+        {
+            "errors": {},
+            "id": 104,
+            "name": "Tenant-chef-organization-1",
+            "ancestry": "1/2/24/64",
+            "divisible": true,
+            "description": "Tenant chef organization 1",
+            "use_config_for_attributes": false,
+            "default_miq_group_id": 715,
+            "tenant_quotas": [],
+            "pricing_model_id": 1,
+            "disabled_providers": []
+        },
+        {
+            "errors": {},
+            "id": 103,
+            "name": "testt",
+            "ancestry": "1/97/99",
+            "divisible": true,
+            "description": "testtt",
+            "use_config_for_attributes": false,
+            "default_miq_group_id": 707,
             "tenant_quotas": [],
             "pricing_model_id": 1,
             "disabled_providers": []

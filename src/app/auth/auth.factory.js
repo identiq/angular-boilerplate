@@ -36,7 +36,7 @@
             }
 
             function loginError(err) {
-                $log.debug(err);
+                $log.debug('loginError', err);
                 topLoader.hide();
                 toastr.error(err.errors[0], lodash.capitalize(err.reason));
                 deferred.reject(err);
