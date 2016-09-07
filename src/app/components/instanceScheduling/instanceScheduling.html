@@ -1,0 +1,163 @@
+<form name="createScheduleForm" ng-submit="createScheduleForm.$valid && vm.create()" class="clearfix">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Active schedule</h4>
+        </div>
+        <div class="col-md-6">
+            <md-input-container>
+                <label>Change schedule</label>
+                <md-select ng-model="vm.activeSchedule" ng-change="vm.change()">
+                    <md-option ng-repeat="schedule in vm.schedules" ng-value="schedule">
+                        {{schedule.name}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table no-margin">
+                <thead>
+                <tr>
+                    <th>Start day</th>
+                    <th>Start time</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="event in vm.events['start']">
+                    <td>{{vm.dows[event.dow]}}</td>
+                    <td>{{event.hours}}:{{event.minutes < 10 ? '0':''}}{{event.minutes}}</td>
+                </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table no-margin">
+                <thead>
+                <tr>
+                    <th>End day</th>
+                    <th>End time</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="event in vm.events['stop']">
+                    <td>{{vm.dows[event.dow]}}</td>
+                    <td>{{event.hours}}:{{event.minutes < 10 ? '0':''}}{{event.minutes}}</td>
+                </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button ui-wave type="button" ng-click="vm.save()"
+            class="btn btn-raised btn-w-xs btn-primary pull-right">Save schedule
+    </button>
+    <button ng-show="vm.instance.schedule_id" ui-wave type="button" ng-click="vm.cancel()"
+            class="btn btn-raised btn-w-xs btn-danger pull-right">Cancel schedule
+    </button>
+    <div class="divider divider-dashed divider-lg pull-in"></div>
+    <h4>Create schedule</h4>
+
+    <md-input-container class="md-block">
+        <label>Name</label>
+        <input ng-model="vm.scheduleForm.name" required>
+    </md-input-container>
+
+    <md-input-container class="md-block">
+        <label>Description</label>
+        <input ng-model="vm.scheduleForm.description" required>
+    </md-input-container>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table no-margin">
+                <thead>
+                <tr>
+                    <th>Start day</th>
+                    <th>Start time</th>
+                </tr>
+                </thead>
+                <tbody ng-if="vm.scheduleForm.events.length">
+                <tr ng-repeat="event in vm.scheduleForm.eventsStart">
+                    <td>{{vm.dows[event.dow]}}</td>
+                    <td>{{event.hours}}:{{event.minutes < 10 ? '0':''}}{{event.minutes}}</td>
+                </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table no-margin">
+                <thead>
+                <tr>
+                    <th>End day</th>
+                    <th>End time</th>
+                </tr>
+                </thead>
+                <tbody ng-if="vm.scheduleForm.events.length">
+                <tr ng-repeat="event in vm.scheduleForm.eventsEnd">
+                    <td>{{vm.dows[event.dow]}}</td>
+                    <td>{{event.hours}}:{{event.minutes < 10 ? '0':''}}{{event.minutes}}</td>
+                </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <table class="table no-margin">
+        <tbody>
+        <tr>
+            <td>
+                <md-input-container>
+                    <label>Start day</label>
+                    <md-select ng-model="vm.eventForm.startDay">
+                        <md-option ng-repeat="dow in vm.dows" ng-value="dow">
+                            {{dow}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </td>
+            <td>
+                <div ng-model="vm.eventForm.startTime" style="display:inline-block;">
+                    <uib-timepicker class="ui-timepicker"></uib-timepicker>
+                </div>
+            </td>
+            <td>
+                <md-input-container>
+                    <label>End day</label>
+                    <md-select ng-model="vm.eventForm.endDay">
+                        <md-option ng-repeat="dow in vm.dows" ng-value="dow">
+                            {{dow}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </td>
+            <td>
+                <div ng-model="vm.eventForm.endTime" style="display:inline-block;">
+                    <uib-timepicker class="ui-timepicker"></uib-timepicker>
+                </div>
+            </td>
+            <td>
+                <button ui-wave type="button" ng-click="vm.addEvent(vm.eventForm)" ng-disabled="vm.eventValidation(vm.eventForm)"
+                        class="btn btn-raised btn-w-xs btn-primary">Create event
+                </button>
+            </td>
+        </tr>
+
+
+        </tbody>
+    </table>
+
+    <button ui-wave type="submit" ng-disabled="createScheduleForm.$invalid"
+            class="btn btn-raised btn-w-xs btn-primary pull-right">Create schedule
+    </button>
+
+</form>
