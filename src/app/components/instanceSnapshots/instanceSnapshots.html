@@ -3,19 +3,29 @@
     <tr>
         <th>Volume</th>
         <th>External ID</th>
-        <th>Start time</th>
-        <th>Size</th>
         <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="snapshot in vm.snapshots">
 
-        <td>{{snapshot.volume}}</td>
+        <td><span ng-bind="vm.volumes[snapshot.source_id].name || 'empty'"></span>
+            ({{vm.volumes[snapshot.source_id].external_id}})
+        </td>
         <td>{{snapshot.external_id}}</td>
-        <td>{{snapshot.size}}</td>
-        <td>{{snapshot.size}}</td>
-        <td></td>
+        <td>
+            <div class="btn-group" uib-dropdown>
+                <button ui-wave type="button" class="btn btn-raised btn-w-xs btn-xs btn-default dropdown-toggle"
+                        uib-dropdown-toggle ng-disabled="disabled"> Actions <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li ng-repeat="action in vm.actions track by $index"
+                        ng-hide="vm.actionDisable($index, snapshot, vm.instance)"><a href="javascript:;"
+                                                                                   ng-click="action.fn(snapshot)"><i
+                            class="zmdi" ng-class="action.icon"></i> {{action.name}}</a></li>
+
+                </ul>
+            </div>
+        </td>
     </tr>
 
     </tbody>

@@ -21,7 +21,7 @@
         return directive;
 
         /** @ngInject */
-        function InstanceVolumesController(toastr, $log, lodash, $timeout, topLoader, instances, providers) {
+        function InstanceVolumesController($rootScope, toastr, $log, lodash, $timeout, topLoader, instances, providers) {
             var vm = this;
 
             vm.volumes = [];
@@ -39,6 +39,8 @@
 
             vm.actionDisable = actionDisable;
             vm.create = create;
+
+            $scope.$on('instance:volumes:new', activate);
 
             activate();
 
@@ -97,6 +99,8 @@
                     topLoader.hide();
                     toastr.success('Snapshot successful');
                     $timeout(activate, 3000);
+                    $rootScope.$broadcast('instance:snapshots:new', volume)
+
                 }
 
                 function snapError(err) {

@@ -2,7 +2,7 @@
     'use strict';
 
 
-    fdescribe('directive instanceVolumes', function() {
+    describe('directive instanceVolumes', function() {
         var vm;
         var el;
         var instance;
