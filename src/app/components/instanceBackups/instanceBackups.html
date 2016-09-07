@@ -1,0 +1,52 @@
+<form name="createBackupForm" ng-submit="createBackupForm.$valid && vm.create()">
+
+    <table class="table no-margin">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Created</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="backup in vm.backups">
+
+            <td ng-bind="backup.name"></td>
+            <td ng-bind="backup.created_at | amDateFormat:'ddd. DD MMM YYYY - HH:mm:ss Z'"></td>
+            <td>
+                <div class="btn-group" uib-dropdown>
+                    <button ui-wave type="button" class="btn btn-raised btn-w-xs btn-xs btn-default dropdown-toggle"
+                            uib-dropdown-toggle ng-disabled="disabled"> Actions <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-repeat="action in vm.actions track by $index"
+                            ng-hide="vm.actionDisable($index, backup, vm.instance)"><a href="javascript:;"
+                                                                                       ng-click="action.fn(backup)"><i
+                                class="zmdi" ng-class="action.icon"></i> {{action.name}}</a></li>
+
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+                <div class="form-group">
+                    <label class="sr-only">Name</label>
+                    <input name="backupName" ng-model="vm.backupForm.name" type="text" class="form-control"
+                           placeholder="Name" required>
+                </div>
+            </td>
+
+            <td>
+
+            </td>
+            <td>
+                <button ui-wave type="submit" ng-disabled="createBackupForm.$invalid"
+                        class="btn btn-raised btn-w-xs btn-primary">Create backup
+                </button>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</form>

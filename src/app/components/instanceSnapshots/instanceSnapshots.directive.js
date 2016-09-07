@@ -56,10 +56,12 @@
                 }
 
                 function volumesError(err) {
+                    topLoader.hide();
                     toastr.error(JSON.stringify(err), "volumesError");
                 }
 
                 function snapshotsError(err) {
+                    topLoader.hide();
                     toastr.error(JSON.stringify(err), "snapshotsError");
                 }
 

@@ -21,7 +21,7 @@
         return directive;
 
         /** @ngInject */
-        function InstanceVolumesController($rootScope, toastr, $log, lodash, $timeout, topLoader, instances, providers) {
+        function InstanceVolumesController($scope, $rootScope, toastr, $log, lodash, $timeout, topLoader, instances, providers) {
             var vm = this;
 
             vm.volumes = [];
@@ -50,10 +50,12 @@
 
                 function volumeSuccess(res) {
                     topLoader.hide();
+                    vm.volumeForm = {};
                     vm.volumes = res.data;
                 }
 
                 function volumesError(err) {
+                    topLoader.hide();
                     toastr.error(JSON.stringify(err), "volumesError");
                 }
 
